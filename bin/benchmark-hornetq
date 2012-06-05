@@ -8,7 +8,7 @@
 #
 
 true \
-${HORNETQ_VERSION:=2.2.5.Final} \
+${HORNETQ_VERSION:=2.2.14.Final} \
 ${HORNETQ_DOWNLOAD:="http://downloads.jboss.org/hornetq/hornetq-${HORNETQ_VERSION}.tar.gz"}
 
 BASEDIR=`dirname "$0"`/.. ; cd "${BASEDIR}" ; BASEDIR=`pwd` ; cd - > /dev/null
