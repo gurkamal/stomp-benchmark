@@ -1,7 +1,7 @@
 #!/bin/bash
 # Runs all the benchmarks.
 #
-
+echo "Starting all benchmarks"
 BASEDIR=`dirname "$0"`/.. ; cd "${BASEDIR}" ; BASEDIR=`pwd` ; cd - > /dev/null
 export SKIP_REPORT="true"
 "${BASEDIR}/bin/benchmark-activemq" $*
