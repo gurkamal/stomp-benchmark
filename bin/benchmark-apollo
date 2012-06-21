@@ -6,7 +6,8 @@
 # [1]: http://github.com/chirino/stomp-benchmark
 # [2]: http://activemq.apache.org/apollo
 #
-
+Xmx=40G
+Xms=20G
 true \
 ${APOLLO_VERSION:=1.3} \
 ${APOLLO_DOWNLOAD:="http://www.apache.org/dist/activemq/activemq-apollo/${APOLLO_VERSION}/apache-apollo-${APOLLO_VERSION}-unix-distro.tar.gz"}
@@ -40,7 +41,7 @@ function server_start() {
 	#
 	# Configuration
 	export APOLLO_ASSERTIONS="false"
-	export JVM_FLAGS="-server -Xmx4G -Xms1G"
+	export JVM_FLAGS="-server -Xmx${Xmx} -Xms${Xmx}"
 
 	#
 	# Start the server

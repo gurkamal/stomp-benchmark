@@ -6,7 +6,8 @@
 # [1]: http://github.com/chirino/stomp-benchmark
 # [2]: http://www.jboss.org/hornetq
 #
-
+Xmx=40G
+Xms=20G
 true \
 ${HORNETQ_VERSION:=2.2.14.Final} \
 ${HORNETQ_DOWNLOAD:="http://downloads.jboss.org/hornetq/hornetq-${HORNETQ_VERSION}.tar.gz"}
@@ -27,7 +28,7 @@ function server_start() {
     
     # Adjust the start script so that it execs java.
     perl -pi -e 's|^java|exec java|' "${HORNETQ_HOME}/bin/run.sh"
-    perl -pi -e 's|-Xms512M -Xmx1024M|-Xmx4G -Xms1G|' "${HORNETQ_HOME}/bin/run.sh"
+    perl -pi -e 's|-Xms512M -Xmx1024M|-Xmx${Xmx} -Xms${Xms}|' "${HORNETQ_HOME}/bin/run.sh"
     
     #
     # Add the stomp connector to the configuration.
