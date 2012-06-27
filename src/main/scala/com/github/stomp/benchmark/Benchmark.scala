@@ -167,6 +167,7 @@ class Benchmark extends Action {
   var cl_scenario_slow_consumer: java.lang.Boolean = _
   var scenario_slow_consumer = FlexibleProperty(default = Some(false), high_priority = () => toBooleanOption(cl_scenario_slow_consumer))
 
+
   @option(name = "--scenario-file", description = "uses a scenario defined in an XML file instead of the default ones")
   var cl_scenario_file: File = _
   var scenario_file = FlexibleProperty(default = None, high_priority = () => Option(cl_scenario_file))
