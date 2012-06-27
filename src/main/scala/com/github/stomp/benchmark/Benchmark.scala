@@ -523,10 +523,10 @@ class Benchmark extends Action {
     }
 
     if(scenario_request_response.get) {
-      for( producers <- List(1, 10, 100); persistent <- List(false, true); consumers <- List(1, 5, 10) ) {
-        val name = "rr_20b_%d%s%s_1queue_%d".format(producers, plabel(persistent), slabel(persistent), consumers)
+      for( size <- List(20, 1024, 1024*50, 1024*128, 1024 * 256, 1024*512, 1024*1024, 1024*1024*5); producers <- List(1, 10, 100); persistent <- List(false, true); consumers <- List(1, 5, 10) ) {
+        val name = "rr_%db_%d%s%s_1queue_%d".format(size, producers, plabel(persistent), slabel(persistent), consumers)
         benchmark(name) { g=>
-          g.message_size = 20
+          g.message_size = size
           g.producers = producers
           g.consumers = consumers
           g.request_response = true
@@ -565,8 +565,7 @@ class Benchmark extends Action {
     }
     
     if( enable_persistence.get && scenario_queue_loading.get ) {
-      for( persistent <- List(false, true)) {
-        val size = 20
+      for( persistent <- List(false, true); size <- List(20, 1024, 1024*50, 1024*128, 1024 * 256, 1024*512, 1024*1024, 1024*1024*5)) {
 
         // Benchmark queue loading
         val name = "%s_1%s%s_1queue_0".format(mlabel(size), plabel(persistent), slabel(persistent))
@@ -651,7 +650,7 @@ class Benchmark extends Action {
 
     if( enable_topics.get && scenario_producer_throughput.get ) {
       // Benchmark for figuring out the max producer throughput
-      for( size <- List(20, 1024, 1024 * 256) ) {
+      for( size <- List(20, 1024, 1024*50, 1024*128, 1024 * 256, 1024*512, 1024*1024, 1024*1024*5) ) {
         val name = "%s_1a_1topic_0".format(mlabel(size))
         benchmark(name) { g=>
           g.message_size = size
@@ -668,7 +667,7 @@ class Benchmark extends Action {
     // Benchmark for the queue parallel load scenario
     if( scenario_partitioned.get ) {
 
-      val message_sizes = List(20, 1024, 1024 * 256)
+      val message_sizes = List(20, 1024, 1024*50, 1024*128, 1024 * 256, 1024*512, 1024*1024, 1024*1024*5)
       val destinations = List(1, 5, 10)
 
       for( persistent <- persistence_values; destination_type <- destination_types ; size <- message_sizes  ; load <- destinations ) {
@@ -687,7 +686,7 @@ class Benchmark extends Action {
 
     if( scenario_fan_in_out.get  ) {
       val client_count = List(1, 5, 10)
-      val message_sizes = List(20)
+      val message_sizes = List(20, 1024, 1024*50, 1024*128, 1024 * 256, 1024*512, 1024*1024, 1024*1024*5)
       
       for( persistent <- persistence_values; destination_type <- destination_types ; size <- message_sizes  ; consumers <- client_count; producers <- client_count ) {
         if( !(consumers == 1 && producers == 1) ) {
